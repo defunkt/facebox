@@ -1,6 +1,6 @@
 /*
  * Facebox (for jQuery)
- * version: 1.0 (12/19/2007)
+ * version: 1.1 (03/13/2008)
  * @requires jQuery v1.2 or later
  *
  * Examples at http://famspam.com/facebox/
@@ -8,12 +8,12 @@
  * Licensed under the MIT:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Copyright 2007 Chris Wanstrath [ chris@ozmm.org ]
+ * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
  *
  * Usage:
  *  
  *  jQuery(document).ready(function() {
- *    jQuery('a[@rel*=facebox]').facebox() 
+ *    jQuery('a[rel*=facebox]').facebox() 
  *  })
  *
  *  <a href="#terms" rel="facebox">Terms</a>
@@ -39,10 +39,10 @@
  *
  */
 (function($) {
-  $.facebox = function(data) {
+  $.facebox = function(data, klass) {
     $.facebox.init()
     $.facebox.loading()
-    $.isFunction(data) ? data.call() : $.facebox.reveal(data)
+    $.isFunction(data) ? data.call() : $.facebox.reveal(data, klass)
   }
 
   $.facebox.settings = {
@@ -64,7 +64,7 @@
               </div> \
               <div class="footer"> \
                 <a href="#" class="close"> \
-                  <img src="" title="close" class="close_image" /> \
+                  <img src="/facebox/closelabel.gif" title="close" class="close_image" /> \
                 </a> \
               </div> \
             </td> \
@@ -105,12 +105,16 @@
   }
 
   $.facebox.close = function() {
+    $(document).trigger('close.facebox')
+    return false
+  }
+
+  $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
     })
-    return false
-  }
+  })
 
   $.fn.facebox = function(settings) {
     $.facebox.init(settings)
@@ -159,7 +163,6 @@
     }
 
     if (settings) $.extend($.facebox.settings, settings)
-
     $('body').append($.facebox.settings.facebox_html)
 
     var preload = [ new Image(), new Image() ]
