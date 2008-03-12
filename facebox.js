@@ -141,7 +141,7 @@
     stop_observing_back_button()
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
-      $('#facebox .content').removeClass().addClass('content')
+      $('#facebox .content').empty().removeClass().addClass('content')
     })
   })
 
