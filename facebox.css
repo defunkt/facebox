@@ -34,10 +34,12 @@
 #facebox table {
   margin: auto;
   border-collapse: collapse;
+  width:auto;
 }
 
 #facebox td {
   border-bottom: 0;
+  padding:0;
 }
 
 #facebox .body {
