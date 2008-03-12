@@ -151,8 +151,7 @@
       return false
     }
 
-    this.click(click_handler)
-    return this
+    return this.click(click_handler)
   }
 
   $.facebox.init = function(settings) {
