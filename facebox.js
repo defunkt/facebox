@@ -95,6 +95,7 @@
     $(document).bind('keydown.facebox', function(e) {
       if (e.keyCode == 27) $.facebox.close()
     })
+    $('#facebox .close').click($.facebox.close)
   }
 
   $.facebox.reveal = function(data, klass) {
