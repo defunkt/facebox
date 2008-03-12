@@ -1,9 +1,11 @@
 /*
  * Facebox (for jQuery)
- * version: 1.1 (03/13/2008)
+ * version: 1.2 (03/13/2008)
  * @requires jQuery v1.2 or later
  *
  * Examples at http://famspam.com/facebox/
+ * Code at http://github.com/defunkt/facebox
+ * List at http://groups.google.com/groups/facebox
  *
  * Licensed under the MIT:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -36,6 +38,10 @@
  *
  *  This will show a loading screen before the passed function is called,
  *  allowing for a better ajax experience.
+ *
+ *  Want to close the facebox?  Trigger the 'close.facebox' document event:
+ *
+ *  jQuery(document).trigger('close.facebox')
  *
  */
 (function($) {
@@ -80,6 +86,8 @@
   </div>'
   }
 
+  // Opening the facebox adds #facebox to the url.  Clicking 'back' closes the facebox
+  // but keeps you on the page you were on.
   function back_button_observer() {
     if (window.location.hash != $.facebox.settings.window_hash) $(document).trigger('close.facebox')
   }
@@ -176,11 +184,8 @@
   }
 
   $.facebox.init = function(settings) {
-    if ($.facebox.settings.inited) {
-      return true
-    } else {
-      $.facebox.settings.inited = true
-    }
+    if ($.facebox.settings.inited) return true
+    else $.facebox.settings.inited = true
 
     if (settings) $.extend($.facebox.settings, settings)
     $('body').append($.facebox.settings.facebox_html)
