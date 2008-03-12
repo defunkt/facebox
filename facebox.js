@@ -48,6 +48,7 @@
   $.facebox.settings = {
     loading_image : '/facebox/loading.gif',
     close_image   : '/facebox/closelabel.gif',
+    window_hash   : '#facebox',
     image_types   : [ 'png', 'jpg', 'jpeg', 'gif' ],
     facebox_html  : '\
   <div id="facebox" style="display:none;"> \
@@ -79,8 +80,26 @@
   </div>'
   }
 
+  function back_button_observer() {
+    if (window.location.hash != $.facebox.settings.window_hash) $(document).trigger('close.facebox')
+  }
+
+  function observe_back_button() {
+    $.facebox.settings.old_hash = window.location.hash || '#'
+    window.location.hash = $.facebox.settings.window_hash
+    $.facebox.settings.back_button_observer = setInterval(back_button_observer, 200)
+  }
+
+  function stop_observing_back_button() {
+    if (window.location.hash != $.facebox.settings.old_hash) window.location.hash = $.facebox.settings.old_hash
+    $.facebox.settings.old_hash = null
+    clearInterval($.facebox.settings.back_button_observer)
+  }
+
   $.facebox.loading = function() {
     if ($('#facebox .loading').length == 1) return true
+    
+    observe_back_button()
 
     $('#facebox .content').empty()
     $('#facebox .body').children().hide().end().
@@ -111,6 +130,7 @@
   }
 
   $(document).bind('close.facebox', function() {
+    stop_observing_back_button()
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
