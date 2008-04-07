@@ -47,6 +47,18 @@
  *  Want to close the facebox?  Trigger the 'close.facebox' document event:
  *
  *    jQuery(document).trigger('close.facebox')
+ *
+ *  Facebox also has a bunch of other hooks:
+ *
+ *    loading.facebox
+ *    beforeReveal.facebox
+ *    reveal.facebox (aliased as 'afterReveal.facebox')
+ *    init.facebox
+ *
+ *  Simply bind a function to any of these hooks:
+ *
+ *   $(document).bind('reveal.facebox', function() { ...stuff to do after the facebox and contents are revealed... })
+ *
  */
 (function($) {
   $.facebox = function(data, klass) {
@@ -119,13 +131,16 @@
         if (e.keyCode == 27) $.facebox.close()
         return true
       })
+      $(document).trigger('loading.facebox')
     },
 
     reveal: function(data, klass) {
+      $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
       $('#facebox .content').append(data)
       $('#facebox .loading').remove()
       $('#facebox .body').children().fadeIn('normal')
+      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 
     close: function() {
@@ -165,6 +180,7 @@
     if ($.facebox.settings.inited) return true
     else $.facebox.settings.inited = true
 
+    $(document).trigger('init.facebox')
     makeCompatible()
 
     var imageTypes = $.facebox.settings.imageTypes.join('|')
