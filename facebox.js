@@ -122,7 +122,7 @@
 
       $('#facebox').css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	0
+        left:	385.5
       }).show()
 
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
@@ -140,6 +140,7 @@
       $('#facebox .content').append(data)
       $('#facebox .loading').remove()
       $('#facebox .body').children().fadeIn('normal')
+      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 
