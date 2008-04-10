@@ -125,8 +125,6 @@
         left:	385.5
       }).show()
 
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
-
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) $.facebox.close()
         return true
