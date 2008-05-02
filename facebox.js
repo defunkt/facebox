@@ -66,7 +66,7 @@
 
     if (data.ajax) fillFaceboxFromAjax(data.ajax)
     else if (data.image) fillFaceboxFromImage(data.image)
-    else if (data.div) fillFaceboxFromHref(date.div)
+    else if (data.div) fillFaceboxFromHref(data.div)
     else if ($.isFunction(data)) data.call($)
     else $.facebox.reveal(data, klass)
   }
