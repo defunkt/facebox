@@ -1,6 +1,6 @@
 /*
  * Facebox (for jQuery)
- * version: 1.1 (03/13/2008)
+ * version: 1.2 (05/05/2008)
  * @requires jQuery v1.2 or later
  *
  * Examples at http://famspam.com/facebox/
