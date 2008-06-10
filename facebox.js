@@ -251,7 +251,7 @@
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
-      $.facebox.reveal($(target).clone().show(), klass)
+      $.facebox.reveal($(target).show().replaceWith("<div id='facebox_moved'></div>"), klass)
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
@@ -310,7 +310,12 @@
   $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
-      $('#facebox .content').removeClass().addClass('content')
+      if(typeof($('#facebox_moved')) == 'undefined') {
+        $('#facebox .content').removeClass().addClass('content')
+      }
+      else { 
+        $('#facebox_moved').replaceWith($('#facebox .content').children().hide())
+      }
       hideOverlay()
       $('#facebox .loading').remove()
     })
