@@ -281,7 +281,7 @@
   function showOverlay() {
     if (skipOverlay()) return
 
-    if ($('facebox_overlay').length == 0) 
+    if ($('#facebox_overlay').length == 0) 
       $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
