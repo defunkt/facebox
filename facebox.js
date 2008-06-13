@@ -310,12 +310,8 @@
   $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
-      if(typeof($('#facebox_moved')) == 'undefined') {
-        $('#facebox .content').removeClass().addClass('content')
-      }
-      else { 
-        $('#facebox_moved').replaceWith($('#facebox .content').children().hide())
-      }
+      if ($('#facebox_moved').length == 0) $('#facebox .content').removeClass().addClass('content')
+      else $('#facebox_moved').replaceWith($('#facebox .content').children().hide())
       hideOverlay()
       $('#facebox .loading').remove()
     })
