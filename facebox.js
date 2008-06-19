@@ -184,7 +184,7 @@
     makeCompatible()
 
     var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.' + imageTypes + '$', 'i')
+    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
     $('body').append($.facebox.settings.faceboxHtml)
