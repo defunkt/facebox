@@ -163,7 +163,25 @@
 
           <div class="code">
             <h3>Arbitrary Text</h3>
-            <code>jQuery.facebox('something cool')</code>
+            <code>
+				jQuery.facebox('something cool');<br/>
+            	jQuery.facebox('something cool', 'my-groovy-style');
+			</code>
+			<h3>Remote files</h3>
+            <code>
+				jQuery.facebox({ ajax: 'remote.html' });<br/>
+				jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style');
+			</code>
+			<h3>Image</h3>
+            <code>
+			    jQuery.facebox({ image: 'stairs.jpg' });<br/>
+			    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style');
+			</code>
+			<h3>A Page Element</h3>
+            <code>
+			    jQuery.facebox({ div: '#box' });<br/>
+			    jQuery.facebox({ div: '#box' }, 'my-groovy-style');
+			</code>
           </div>
 
           <p>

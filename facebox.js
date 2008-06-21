@@ -29,6 +29,7 @@
  *  You can also use it programmatically:
  * 
  *    jQuery.facebox('some html')
+ *    jQuery.facebox('some html', 'my-groovy-style')
  *
  *  The above will open a facebox with "some html" as the content.
  *    
@@ -39,10 +40,14 @@
  *  The above will show a loading screen before the passed function is called,
  *  allowing for a better ajaxy experience.
  *
- *  The facebox function can also display an ajax page or image:
+ *  The facebox function can also display an ajax page, an image, or the contents of a div:
  *  
  *    jQuery.facebox({ ajax: 'remote.html' })
- *    jQuery.facebox({ image: 'dude.jpg' })
+ *    jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style')
+ *    jQuery.facebox({ image: 'stairs.jpg' })
+ *    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style')
+ *    jQuery.facebox({ div: '#box' })
+ *    jQuery.facebox({ div: '#box' }, 'my-groovy-style')
  *
  *  Want to close the facebox?  Trigger the 'close.facebox' document event:
  *
@@ -64,9 +69,9 @@
   $.facebox = function(data, klass) {
     $.facebox.loading()
 
-    if (data.ajax) fillFaceboxFromAjax(data.ajax)
-    else if (data.image) fillFaceboxFromImage(data.image)
-    else if (data.div) fillFaceboxFromHref(data.div)
+    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
+    else if (data.image) fillFaceboxFromImage(data.image, klass)
+    else if (data.div) fillFaceboxFromHref(data.div, klass)
     else if ($.isFunction(data)) data.call($)
     else $.facebox.reveal(data, klass)
   }
