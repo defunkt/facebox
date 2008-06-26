@@ -256,7 +256,7 @@
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
-      $.facebox.reveal($(target).show().replaceWith("<div id='facebox_moved'></div>"), klass)
+      $.facebox.reveal($(target).show().replaceAll("<div id='facebox_moved'></div>"), klass)
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
