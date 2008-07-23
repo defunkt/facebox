@@ -173,7 +173,7 @@
       return false
     }
 
-    return this.click(clickHandler)
+    return this.bind('click.facebox', clickHandler)
   }
 
   /*
