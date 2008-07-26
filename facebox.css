@@ -65,6 +65,10 @@
   text-align: right;
 }
 
+#facebox .footer img {
+  vertical-align: middle;
+}
+
 #facebox .tl, #facebox .tr, #facebox .bl, #facebox .br {
   height: 10px;
   width: 10px;
