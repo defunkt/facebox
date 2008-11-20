@@ -40,6 +40,8 @@
 
 #facebox table {
   border-collapse: collapse;
+  /* ie 6 hack -- if the global table width is set to anything it could cause us issues*/
+  -width:0%;
 }
 
 #facebox td {
