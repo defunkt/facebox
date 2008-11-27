@@ -92,7 +92,7 @@
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <table> \
-          <tbody> \
+          <tbody id="facebox-tbody"> \
             <tr> \
               <td class="tl"/><td class="b"/><td class="tr"/> \
             </tr> \
