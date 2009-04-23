@@ -141,7 +141,7 @@
     reveal: function(data, klass) {
       $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
+      $('#facebox .content').append(data.html())
       $('#facebox .loading').remove()
       $('#facebox .body').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox table').width() / 2))
@@ -159,6 +159,8 @@
    */
 
   $.fn.facebox = function(settings) {
+    if ($(this).length == 0) return
+
     init(settings)
 
     function clickHandler() {
@@ -256,7 +258,7 @@
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
-      $.facebox.reveal($(target).show().replaceWith("<div id='facebox_moved'></div>"), klass)
+      $.facebox.reveal($(target).clone().show(), klass)
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
@@ -315,8 +317,7 @@
   $(document).bind('close.facebox', function() {
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
-      if ($('#facebox_moved').length == 0) $('#facebox .content').removeClass().addClass('content')
-      else $('#facebox_moved').replaceWith($('#facebox .content').children().hide())
+      $('#facebox .content').removeClass().addClass('content')
       hideOverlay()
       $('#facebox .loading').remove()
     })
