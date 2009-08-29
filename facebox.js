@@ -200,7 +200,7 @@
     preload[0].src = $.facebox.settings.closeImage
     preload[1].src = $.facebox.settings.loadingImage
 
-    $('#facebox').find('.b:first, .bl, .br, .tl, .tr').each(function() {
+    $('#facebox').find('.b:first, .bl').each(function() {
       preload.push(new Image())
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
     })
