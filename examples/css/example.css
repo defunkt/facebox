@@ -3,8 +3,8 @@
   padding: 0;
 }
 
-body { 
-  font-family: "lucida grande",tahoma,verdana,arial,sans-serif; 
+body {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   background: #fff;
   color: #333;
   padding-bottom: 25px;
@@ -41,12 +41,12 @@ li {
   font-family: Georgia;
 }
 
-.bolder { 
-  background: red; 
-  color: white; 
-  font-size: 20px; 
-  padding: 20px; 
-  width: 500px; 
+#facebox .bolder {
+  background: red;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  width: 500px;
 }
 
 textarea {
