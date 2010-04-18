@@ -6,14 +6,25 @@
   text-align: left;
 }
 
-#facebox .popup {
-  position: relative;
+
+#facebox .popup{
+  border:3px solid rgba(0,0,0,0);
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  box-shadow:0 0 18px rgba(0,0,0,0.4);
 }
 
-#facebox .body {
+#facebox .content {
+  position:relative;
+  width: 370px;
   padding: 10px;
   background: #fff;
-  width: 370px;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
 }
 
 #facebox .loading {
