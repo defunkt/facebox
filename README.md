@@ -1,10 +1,12 @@
 # Facebox
 
-This is my fork of [defunkt/facebox](http://github.com/defunkt/facebox) to reduce use of images and rely more on CSS.
+This is my fork of [defunkt/facebox](http://github.com/defunkt/facebox) to reduce use of images and rely more on CSS. [See it in action](http://kneath.github.com/facebox/examples/).
 
 Facebox is a jQuery-based, Facebook-style lightbox which can display images, divs, or entire remote pages.
 
 ![Sample Image](http://share.kyleneath.com/captures/Facebox_1.2-20100417-190352.jpg)
+
+[Download the latest release](http://github.com/kneath/facebox/zipball/cssified)
 
 ## Usage
 
@@ -76,3 +78,7 @@ Simply bind a function to any of these hooks:
 You can give the facebox container an extra class (to fine-tune the display of the facebox) with the facebox[.class] rel syntax.
 
     <a href="remote.html" rel="facebox[.bolder]">text</a>
+
+## Contact & Help
+
+If you have questions, feel free to ask on the [Google Groups Mailing List](http://groups.google.com/group/facebox/). Alternatively if you find a bug, you can [open an issue](http://github.com/kneath/facebox/issues) on my fork.
