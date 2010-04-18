@@ -5,16 +5,16 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Facebox 1.2</title>
-  <link href="facebox.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="faceplant.css" media="screen" rel="stylesheet" type="text/css" />
-  <script src="jquery.js" type="text/javascript"></script>
-  <script src="facebox.js" type="text/javascript"></script>
+  <link href="../src/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/example.css" media="screen" rel="stylesheet" type="text/css" />
+  <script src="../lib/jquery.js" type="text/javascript"></script>
+  <script src="../src/facebox.js" type="text/javascript"></script>
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       $('a[rel*=facebox]').facebox({
-        loading_image : 'loading.gif',
-        close_image   : 'closelabel.gif'
-      }) 
+        loading_image : '../src/loading.gif',
+        close_image   : '../src/closelabel.gif'
+      })
     })
   </script>
 </head>
@@ -24,16 +24,16 @@
     <div id="shadow">
       <div id="content">
         <div id="logo">
-          <img src="logo.png"/>
+          <img src="images/logo.png"/>
         </div>
 
         <div class="example">
           <h2>What is it?</h2>
-          <p> 
-            Facebox is a jQuery-based, Facebook-style lightbox which can display images, divs, or entire remote pages.  
-          </p> 
+          <p>
+            Facebox is a jQuery-based, Facebook-style lightbox which can display images, divs, or entire remote pages.
+          </p>
 
-          <p> 
+          <p>
             It's simple to use and easy on the eyes.  Download the tarball, view the examples, then start enjoying the curves.
           </p>
 
@@ -58,7 +58,7 @@
             <strong><a href="releases/facebox-1.2.tar.gz">Download Facebox v1.2</a></strong>
           </p>
 
-          <p> 
+          <p>
             Want to live on the edge?  The code is kept in <strong><a href="http://github.com">GitHub</a></strong> at <a href="http://github.com/defunkt/facebox">http://github.com/defunkt/facebox</a>
           </p>
         </div>
@@ -73,11 +73,11 @@
         <div class="example">
           <h2>Images</h2>
 
-          <p> <a href="stairs.jpg" rel="facebox">View '/facebox/stairs.jpg' in the Facebox</a> </p>
+          <p> <a href="images/stairs.jpg" rel="facebox">View 'images/stairs.jpg' in the Facebox</a> </p>
 
           <div class="code">
             <h3>The Code</h3>
-            <code>&lt;a href="stairs.jpg" rel="facebox"&gt;text&lt;/a&gt;</code>
+            <code>&lt;a href="images/stairs.jpg" rel="facebox"&gt;text&lt;/a&gt;</code>
           </div>
         </div>
 
@@ -133,13 +133,13 @@
 
         <div class="example">
           <h2>Extra Classes</h2>
-          <p> 
+          <p>
             You can give the facebox container an extra class (to fine-tune the display of reusable remote pages)
             with the <code>facebox[.class]</code> rel syntax.
           </p>
           <p>
-            Maybe your <i>Terms and Conditions</i> can be loaded standalone or via Facebox.  When loaded in Facebox, 
-            you might want to tweak some styles -- like making the <code>h1</code> positioned absolutely?  
+            Maybe your <i>Terms and Conditions</i> can be loaded standalone or via Facebox.  When loaded in Facebox,
+            you might want to tweak some styles -- like making the <code>h1</code> positioned absolutely?
             We do this on FamSpam.
           </p>
           <p>
@@ -156,7 +156,7 @@
 
         <div class="example">
           <h2>Controlling Facebox Programmatically</h2>
-          <p> 
+          <p>
             It's possible to attain a higher level control over Facebox by calling methods directly.
             The following will open the Facebox and insert the passed string into it:
           </p>
@@ -174,8 +174,8 @@
 			</code>
 			<h3>Image</h3>
             <code>
-			    jQuery.facebox({ image: 'stairs.jpg' });<br/>
-			    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style');
+			    jQuery.facebox({ image: 'images/stairs.jpg' });<br/>
+			    jQuery.facebox({ image: 'images/stairs.jpg' }, 'my-groovy-style');
 			</code>
 			<h3>A Page Element</h3>
             <code>
@@ -220,7 +220,7 @@
 
         <div class="example">
           <h2>Thanks <span class="amp">&amp;</span> Contact</h2>
-          <p> 
+          <p>
             Thanks to Facebook for the idea and style.  Thanks to Mindy Tchieu for her help in getting this working.
           </p>
           <p>
@@ -245,7 +245,7 @@
   <div id="info" style="display:none;">
     <p> Hey, I'm the 'info' div! </p>
     <p> I look like this: </p>
-    <code> 
+    <code>
       &lt;div id="info" style="display:none;"&gt; <br/>
         &nbsp;&nbsp;text<br/>
       &lt;/div&gt;
