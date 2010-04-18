@@ -8,6 +8,18 @@ Facebox is a jQuery-based, Facebook-style lightbox which can display images, div
 
 [Download the latest release](http://github.com/kneath/facebox/zipball/cssified)
 
+## Compatibility
+
+This release relies on a lot of advanced CSS techniques (box-shadow, border-radius, RGBA). That being said, it's compatible with many browsers.
+
+* **Safari 4**
+* **Webkit Nightlies** (Chromium, Chrome) as of 4/17/10
+* **Firefox 3.5**
+* **IE8** (degraded experience)
+* **IE7** (degraded experience)
+* IE6 - I just don't care
+* Opera - I just don't care
+
 ## Usage
 
 Include jQuery, `src/facebox.js` and `src/facebox.css`. Then tell facebox where you've put `src/loading.gif` and `src/closelabel.png`
