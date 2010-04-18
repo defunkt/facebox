@@ -19,12 +19,19 @@
 
 #facebox .content {
   position:relative;
-  width: 370px;
+  min-width: 370px;
   padding: 10px;
   background: #fff;
   -webkit-border-radius:4px;
   -moz-border-radius:4px;
   border-radius:4px;
+}
+
+#facebox .content > p:first-child{
+  margin-top:0;
+}
+#facebox .content > p:last-child{
+  margin-bottom:0;
 }
 
 #facebox .loading {
