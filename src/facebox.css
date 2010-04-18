@@ -8,6 +8,7 @@
 
 
 #facebox .popup{
+  position:relative;
   border:3px solid rgba(0,0,0,0);
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
@@ -18,7 +19,6 @@
 }
 
 #facebox .content {
-  position:relative;
   min-width: 370px;
   padding: 10px;
   background: #fff;
@@ -32,6 +32,20 @@
 }
 #facebox .content > p:last-child{
   margin-bottom:0;
+}
+
+#facebox .close{
+  position:absolute;
+  top:5px;
+  right:5px;
+  padding:2px;
+  background:#fff;
+}
+#facebox .close img{
+  opacity:0.3;
+}
+#facebox .close:hover img{
+  opacity:1.0;
 }
 
 #facebox .loading {
