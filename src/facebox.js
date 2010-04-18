@@ -92,7 +92,6 @@
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        </div> \
       </div> \
     </div>'
     },
