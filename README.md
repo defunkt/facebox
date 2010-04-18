@@ -4,9 +4,7 @@ This is my fork of [defunkt/facebox](http://github.com/defunkt/facebox) to reduc
 
 Facebox is a jQuery-based, Facebook-style lightbox which can display images, divs, or entire remote pages.
 
-<center>
 ![Sample Image](http://share.kyleneath.com/captures/Facebox_1.2-20100417-190352.jpg)
-</center>
 
 ## Usage
 
