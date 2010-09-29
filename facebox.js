@@ -261,7 +261,14 @@
       var target = href.replace(url,'')
       if (target == '#') return
       $.facebox.reveal($(target).html(), klass)
-
+      $(target).find('[id]').each(function(intIndex) {
+        $(this).attr('id', $(this).attr('id') + '_facebox_active')
+      })
+      $(document).bind('close.facebox', function() {
+        $(target).find('[id]').each(function(intIndex) {
+          $(this).attr('id', $(this).attr('id').replace(/_facebox_active/, ''))
+        })
+      })
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
       fillFaceboxFromImage(href, klass)
