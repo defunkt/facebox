@@ -17,8 +17,8 @@ This release relies on a lot of advanced CSS techniques (box-shadow, border-radi
 * **Firefox 3.5**
 * **IE8** (degraded experience)
 * **IE7** (degraded experience)
-* IE6 - I just don't care
-* Opera - I just don't care
+* IE6 - I just don't care!
+* Opera - I just don't care!
 
 ## Usage
 
