@@ -87,6 +87,7 @@
       overlay      : true,
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
+      closeOnClick : false,
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -116,6 +117,8 @@
         if (e.keyCode == 27) $.facebox.close()
         return true
       })
+      if ($.facebox.settings.closeOnClick) $('#facebox').click($.facebox.close)
+
       $(document).trigger('loading.facebox')
     },
 
