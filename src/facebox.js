@@ -92,7 +92,7 @@
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"><img src="/facebox/closelabel.png" title="close" class="close_image" /></a> \
+        <a href="#" class="close"></a> \
       </div> \
     </div>'
     },
@@ -177,6 +177,12 @@
     $('body').append($.facebox.settings.faceboxHtml)
 
     var preload = [ new Image(), new Image() ]
+    $(preload[0]).bind("load", function() {
+      $('#facebox .close').css({ backgroundImage: "url(" + this.src + ")",
+                                 height:          this.height,
+                                 width:           this.width })
+    })
+
     preload[0].src = $.facebox.settings.closeImage
     preload[1].src = $.facebox.settings.loadingImage
 
@@ -186,7 +192,6 @@
     })
 
     $('#facebox .close').click($.facebox.close)
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
   }
 
   // getPageScroll() by quirksmode.com

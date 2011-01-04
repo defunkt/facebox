@@ -40,12 +40,10 @@
   top:5px;
   right:5px;
   padding:2px;
-  background:#fff;
-}
-#facebox .close img{
+  background:#fff center center no-repeat;
   opacity:0.3;
 }
-#facebox .close:hover img{
+#facebox .close:hover{
   opacity:1.0;
 }
 
