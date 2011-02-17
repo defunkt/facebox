@@ -103,7 +103,7 @@
       showOverlay()
 
       $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
+      $('#facebox .popup').children().hide().end().
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').css({
@@ -123,7 +123,7 @@
       if (klass) $('#facebox .content').addClass(klass)
       $('#facebox .content').append(data)
       $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
+      $('#facebox .popup').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
