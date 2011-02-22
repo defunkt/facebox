@@ -22,18 +22,15 @@ This release relies on a lot of advanced CSS techniques (box-shadow, border-radi
 
 ## Usage
 
-Include jQuery, `src/facebox.js` and `src/facebox.css`. Then tell facebox where you've put `src/loading.gif` and `src/closelabel.png`
+Include jQuery, `src/facebox.js` and `src/facebox.css`.
 
-    $.facebox.settings.closeImage = '/images/facebox/closelabel.png'
-    $.facebox.settings.loadingImage = '/images/facebox/loading.gif'
-
-Calling facebox() on any anchor tag will do the trick, it's easier to give your Faceboxy links a rel="facebox"  and hit them all onDomReady.
+Calling facebox() on any anchor tag will do the trick, but it's easier to give your Faceboxy links a rel="facebox" and hit them all onDomReady.
 
     jQuery(document).ready(function($) {
       $('a[rel*=facebox]').facebox()
     })
 
-Any anchor links with `rel="facebox"` with now automatically use facebox:
+Any anchor links with `rel="facebox"` with now automatically use Facebox:
 
     <a href="#terms" rel="facebox">Terms</a>
       Loads the #terms div in the box
@@ -45,7 +42,7 @@ Any anchor links with `rel="facebox"` with now automatically use facebox:
       Loads the terms.png image in the box
 
 
-### Using facebox programmatically
+### Using Facebox programmatically
 
     jQuery.facebox('some html')
     jQuery.facebox('some html', 'my-groovy-style')
@@ -90,6 +87,10 @@ Simply bind a function to any of these hooks:
 You can give the facebox container an extra class (to fine-tune the display of the facebox) with the facebox[.class] rel syntax.
 
     <a href="remote.html" rel="facebox[.bolder]">text</a>
+
+You can also use Facebox with acustom loading graphic:
+
+    $.facebox.settings.loadingImage = '/images/ajax/loading.gif'
 
 ## Contact & Help
 
