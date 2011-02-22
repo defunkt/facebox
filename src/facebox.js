@@ -84,7 +84,7 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
-      loadingImage : '/facebox/loading.gif',
+      loadingImage : null,
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
@@ -103,7 +103,12 @@
       showOverlay()
 
       $('#facebox .content').empty().
-        append('<div class="loading">&nbsp;</div>')
+        append('<div class="loading inline">&nbsp;</div>')
+
+      if ( $.facebox.settings.loadingImage )
+        $('#facebox .loading')
+          .removeClass('inline')
+          .append('<img src="'+$.facebox.settings.loadingImage+'"/>')
 
       $('#facebox').show().css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
