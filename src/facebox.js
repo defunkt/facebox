@@ -120,8 +120,7 @@
     reveal: function(data, klass) {
       $(document).trigger('beforeReveal.facebox')
       if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
-      $('#facebox .loading').remove()
+      $('#facebox .content').empty().append(data)
       $('#facebox .popup').children().fadeIn('normal')
       $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
