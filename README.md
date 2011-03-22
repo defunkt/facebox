@@ -80,6 +80,7 @@ Facebox also has a bunch of other hooks:
 * `beforeReveal.facebox`
 * `reveal.facebox` (aliased as `afterReveal.facebox`)
 * `init.facebox`
+* `afterClose.facebox`  (callback after closing `facebox`)
 
 Simply bind a function to any of these hooks:
 
