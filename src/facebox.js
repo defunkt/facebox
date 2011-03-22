@@ -87,14 +87,13 @@
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-      faceboxHtml  : '\
-    <div id="facebox" style="display:none;"> \
-      <div class="popup"> \
-        <div class="content"> \
-        </div> \
-        <a href="#" class="close"></a> \
-      </div> \
-    </div>'
+      faceboxHtml  :
+      $('<div/>', {'id': 'facebox', 'style': 'display:none'}).append(
+        $('<div/>', {'class': 'popup'}).append(
+          $('<div/>', {'class': 'content'}),
+          $('<a/>',   {'class': 'close', 'href': '#'})
+        )
+      )
     },
 
     loading: function() {
