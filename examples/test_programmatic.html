@@ -5,16 +5,19 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Facebox 1.2 Programmatic Tests</title>
-  <link href="facebox.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="faceplant.css" media="screen" rel="stylesheet" type="text/css" />
-  <script src="jquery.js" type="text/javascript"></script>
-  <script src="facebox.js" type="text/javascript"></script>
+  <link href="../src/facebox.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="css/example.css" media="screen" rel="stylesheet" type="text/css" />
+  <script src="../lib/jquery.js" type="text/javascript"></script>
+  <script src="../src/facebox.js" type="text/javascript"></script>
   <script type="text/javascript">
     jQuery(document).ready(function($) {
-      $('a[rel*=facebox]').facebox({
-        loading_image : 'loading.gif',
-        close_image   : 'closelabel.gif'
-      }) 
+
+      $.facebox.settings.loadingImage = '../src/loading.gif'
+      $.facebox.settings.closeImage = '../src/closelabel.png'
+
+      $('#facebox_close').live('click', function(){
+          $(document).trigger('close.facebox');
+      })
     })
   </script>
   <style type="text/css">
@@ -48,6 +51,16 @@
 	
 	<div id="box" style="border: solid; width: 150px;">
 		Watch me go into a facebox!
+	</div>
+	
+	<br/>
+	
+	<a href="javascript: jQuery.facebox.modal({div:'#box_modal'});">Programmatic Modal</a><br />
+
+    <br/>
+
+	<div id="box_modal" style="display: none;">
+		<button id="facebox_close">This button only close the facebox</button>
 	</div>
 
 </body>

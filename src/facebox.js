@@ -68,14 +68,22 @@
 (function($) {
   $.facebox = function(data, klass) {
     $.facebox.loading()
-
+    
     if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
     else if (data.image) fillFaceboxFromImage(data.image, klass)
     else if (data.div) fillFaceboxFromHref(data.div, klass)
     else if ($.isFunction(data)) data.call($)
     else $.facebox.reveal(data, klass)
   }
-
+  
+  var modal = false;
+  
+  $.facebox.modal = function(data, klass) {
+    modal = true;
+    $.facebox(data, klass)
+    $('#facebox .close').hide();
+  }
+  
   /*
    * Public, $.facebox methods
    */
@@ -127,7 +135,7 @@
     },
 
     close: function() {
-      $(document).trigger('close.facebox')
+      if( !modal ) $(document).trigger('close.facebox')
       return false
     }
   })
@@ -137,13 +145,14 @@
    */
 
   $.fn.facebox = function(settings) {
+    
     if ($(this).length == 0) return
-
+    
     init(settings)
 
     function clickHandler() {
       $.facebox.loading(true)
-
+      
       // support for rel="facebox.inline_popup" syntax, to add a class
       // also supports deprecated "facebox[.inline_popup]" syntax
       var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
@@ -275,8 +284,9 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
+      .click(function() { 
+        if( !modal  ) $(document).trigger('close.facebox')
+      }).fadeIn(200)
     return false
   }
 
@@ -297,6 +307,10 @@
    */
 
   $(document).bind('close.facebox', function() {
+    if( modal ) {
+      $('#facebox .close').show(); 
+      modal = false;
+    }
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
