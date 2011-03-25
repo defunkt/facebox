@@ -9,18 +9,18 @@
 
 #facebox .popup{
   position:relative;
-  border:3px solid rgba(0,0,0,0);
+  border: 3px solid rgba(0,0,0,0);
   -webkit-border-radius:5px;
   -moz-border-radius:5px;
   border-radius:5px;
   -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
   -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
   box-shadow:0 0 18px rgba(0,0,0,0.4);
+  background-color: #fff;
 }
 
 #facebox .content {
   display:table;
-  width: 370px;
   padding: 10px;
   background: #fff;
   -webkit-border-radius:4px;
