@@ -260,7 +260,19 @@
   }
 
   function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
+        $.ajax({
+            type: "GET",
+            url: href,
+            success: function (data) {
+                $.facebox.reveal(data, klass)
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                data = 'Error: ' + xhr.statusText;
+                
+                $.facebox.reveal(data, klass)
+                return false
+            }
+        })
   }
 
   function skipOverlay() {
