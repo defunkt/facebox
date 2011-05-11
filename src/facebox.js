@@ -82,12 +82,13 @@
 
   $.extend($.facebox, {
     settings: {
-      opacity      : 0.2,
-      overlay      : true,
-      loadingImage : '/facebox/loading.gif',
-      closeImage   : '/facebox/closelabel.png',
-      imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-      faceboxHtml  : '\
+      opacity        : 0.2,
+      overlay        : true,
+      overlayOnclick : $.facebox.close,
+      loadingImage   : '/facebox/loading.gif',
+      closeImage     : '/facebox/closelabel.png',
+      imageTypes     : [ 'png', 'jpg', 'jpeg', 'gif' ],
+      faceboxHtml    : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
@@ -106,8 +107,8 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').show().css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+        top:  getPageScroll()[1] + (getPageHeight() / 10),
+        left: $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
       })
 
       $(document).bind('keydown.facebox', function(e) {
@@ -196,7 +197,7 @@
     if (self.pageYOffset) {
       yScroll = self.pageYOffset;
       xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
+    } else if (document.documentElement && document.documentElement.scrollTop) {   // Explorer 6 Strict
       yScroll = document.documentElement.scrollTop;
       xScroll = document.documentElement.scrollLeft;
     } else if (document.body) {// all other Explorers
@@ -209,7 +210,7 @@
   // Adapted from getPageSize() by quirksmode.com
   function getPageHeight() {
     var windowHeight
-    if (self.innerHeight) {	// all except Explorer
+    if (self.innerHeight) { // all except Explorer
       windowHeight = self.innerHeight;
     } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
       windowHeight = document.documentElement.clientHeight;
@@ -270,13 +271,14 @@
   function showOverlay() {
     if (skipOverlay()) return
 
-    if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
-
-    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
-      .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
+    if ($('#facebox_overlay').length == 0) {
+      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>');
+    }
+    $('#facebox_overlay').hide().addClass("facebox_overlayBG").css('opacity', $.facebox.settings.opacity);
+    if ('function' == typeof($.facebox.settings.overlayOnclick)) {
+      $('#facebox_overlay').click($.facebox.settings.overlayOnclick);
+    }
+    $('#facebox_overlay').fadeIn(200);
     return false
   }
 
