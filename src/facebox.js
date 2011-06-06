@@ -261,7 +261,7 @@
 
     $.facebox.init(settings)
 
-    function clickHandler() {
+    return this.bind('click.facebox', function() {
       $.facebox.loading(true)
 
       // support for rel="facebox.inline_popup" syntax, to add a class
@@ -271,9 +271,7 @@
 
       $.facebox.fillFromHref(this.href, klass, {})
       return false
-    }
-
-    return this.bind('click.facebox', clickHandler)
+    })
   }
 
   /*
