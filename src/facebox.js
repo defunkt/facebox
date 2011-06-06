@@ -69,9 +69,9 @@
   $.facebox = function(data, klass) {
     $.facebox.loading()
 
-    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
-    else if (data.image) fillFaceboxFromImage(data.image, klass)
-    else if (data.div) fillFaceboxFromHref(data.div, klass)
+    if (data.ajax) $.facebox.fillFromAjax(data.ajax, klass, data)
+    else if (data.image) $.facebox.fillFromImage(data.image, klass, data)
+    else if (data.div) $.facebox.fillFromHref(data.div, klass, data)
     else if ($.isFunction(data)) data.call($)
     else $.facebox.reveal(data, klass)
   }
@@ -97,8 +97,90 @@
     </div>'
     },
 
+    // called one time to setup facebox on this page
+    init: function(settings) {
+      // Backwards compatibility
+      function makeCompatible() {
+        var $s = $.facebox.settings
+
+        $s.loadingImage = $s.loading_image || $s.loadingImage
+        $s.closeImage = $s.close_image || $s.closeImage
+        $s.imageTypes = $s.image_types || $s.imageTypes
+        $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
+      }
+
+      if ($.facebox.settings.inited) return true
+      else $.facebox.settings.inited = true
+
+      $(document).trigger('init.facebox')
+      makeCompatible()
+
+      var imageTypes = $.facebox.settings.imageTypes.join('|')
+      $.facebox.settings.imageTypesRegexp = new RegExp('\\.(' + imageTypes + ')(\\?.*)?$', 'i')
+
+      if (settings) $.extend($.facebox.settings, settings)
+      $('body').append($.facebox.settings.faceboxHtml)
+
+      var preload = [ new Image(), new Image() ]
+      preload[0].src = $.facebox.settings.closeImage
+      preload[1].src = $.facebox.settings.loadingImage
+
+      $('#facebox').find('.b:first, .bl').each(function() {
+        preload.push(new Image())
+        preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
+      })
+
+      $('#facebox .close')
+        .click($.facebox.close)
+        .append('<img src="'
+                + $.facebox.settings.closeImage
+                + '" class="close_image" title="close">')
+    },
+
     loading: function() {
-      init()
+      function showOverlay() {
+        if ($.facebox.skipOverlay()) return
+
+        if ($('#facebox_overlay').length == 0)
+          $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
+
+        $('#facebox_overlay').hide().addClass("facebox_overlayBG")
+          .css('opacity', $.facebox.settings.opacity)
+          .click(function() { $(document).trigger('close.facebox') })
+          .fadeIn(200)
+        return false
+      }
+
+      // Adapted from getPageSize() by quirksmode.com
+      function getPageHeight() {
+        var windowHeight
+        if (self.innerHeight) {	// all except Explorer
+          windowHeight = self.innerHeight;
+        } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+          windowHeight = document.documentElement.clientHeight;
+        } else if (document.body) { // other Explorers
+          windowHeight = document.body.clientHeight;
+        }
+        return windowHeight
+      }
+
+      // getPageScroll() by quirksmode.com
+      function getPageScroll() {
+        var xScroll, yScroll;
+        if (self.pageYOffset) {
+          yScroll = self.pageYOffset;
+          xScroll = self.pageXOffset;
+        } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
+          yScroll = document.documentElement.scrollTop;
+          xScroll = document.documentElement.scrollLeft;
+        } else if (document.body) {// all other Explorers
+          yScroll = document.body.scrollTop;
+          xScroll = document.body.scrollLeft;
+        }
+        return new Array(xScroll,yScroll)
+      }
+
+      $.facebox.init()
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
 
@@ -115,6 +197,44 @@
         return true
       })
       $(document).trigger('loading.facebox')
+    },
+
+    fillFromAjax: function (href, klass, options) {
+      $.get(href, function(data) { $.facebox.reveal(data, klass) })
+    },
+
+    fillFromImage: function (href, klass, options) {
+      var image = new Image()
+      image.onload = function() {
+        $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
+      }
+      image.src = href
+    },
+
+    // Figures out what you want to display and displays it
+    // formats are:
+    //     div: #id
+    //   image: blah.extension
+    //    ajax: anything else
+    fillFromHref: function (href, klass, options) {
+      // div
+      if (href.match(/#/)) {
+        var url    = window.location.href.split('#')[0]
+        var target = href.replace(url,'')
+        if (target == '#') return
+        $.facebox.reveal($(target).html(), klass)
+
+      // image
+      } else if (href.match($.facebox.settings.imageTypesRegexp)) {
+        $.facebox.fillFromImage(href, klass, {})
+      // ajax
+      } else {
+        $.facebox.fillFromAjax(href, klass, {})
+      }
+    },
+
+    skipOverlay: function() {
+      return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
     },
 
     reveal: function(data, klass) {
@@ -139,7 +259,7 @@
   $.fn.facebox = function(settings) {
     if ($(this).length == 0) return
 
-    init(settings)
+    $.facebox.init(settings)
 
     function clickHandler() {
       $.facebox.loading(true)
@@ -149,7 +269,7 @@
       var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
       if (klass) klass = klass[1]
 
-      fillFaceboxFromHref(this.href, klass)
+      $.facebox.fillFromHref(this.href, klass, {})
       return false
     }
 
@@ -160,128 +280,8 @@
    * Private methods
    */
 
-  // called one time to setup facebox on this page
-  function init(settings) {
-    if ($.facebox.settings.inited) return true
-    else $.facebox.settings.inited = true
-
-    $(document).trigger('init.facebox')
-    makeCompatible()
-
-    var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\\.(' + imageTypes + ')(\\?.*)?$', 'i')
-
-    if (settings) $.extend($.facebox.settings, settings)
-    $('body').append($.facebox.settings.faceboxHtml)
-
-    var preload = [ new Image(), new Image() ]
-    preload[0].src = $.facebox.settings.closeImage
-    preload[1].src = $.facebox.settings.loadingImage
-
-    $('#facebox').find('.b:first, .bl').each(function() {
-      preload.push(new Image())
-      preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
-    })
-
-    $('#facebox .close')
-      .click($.facebox.close)
-      .append('<img src="'
-              + $.facebox.settings.closeImage
-              + '" class="close_image" title="close">')
-  }
-
-  // getPageScroll() by quirksmode.com
-  function getPageScroll() {
-    var xScroll, yScroll;
-    if (self.pageYOffset) {
-      yScroll = self.pageYOffset;
-      xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
-      yScroll = document.documentElement.scrollTop;
-      xScroll = document.documentElement.scrollLeft;
-    } else if (document.body) {// all other Explorers
-      yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;
-    }
-    return new Array(xScroll,yScroll)
-  }
-
-  // Adapted from getPageSize() by quirksmode.com
-  function getPageHeight() {
-    var windowHeight
-    if (self.innerHeight) {	// all except Explorer
-      windowHeight = self.innerHeight;
-    } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-      windowHeight = document.documentElement.clientHeight;
-    } else if (document.body) { // other Explorers
-      windowHeight = document.body.clientHeight;
-    }
-    return windowHeight
-  }
-
-  // Backwards compatibility
-  function makeCompatible() {
-    var $s = $.facebox.settings
-
-    $s.loadingImage = $s.loading_image || $s.loadingImage
-    $s.closeImage = $s.close_image || $s.closeImage
-    $s.imageTypes = $s.image_types || $s.imageTypes
-    $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
-  }
-
-  // Figures out what you want to display and displays it
-  // formats are:
-  //     div: #id
-  //   image: blah.extension
-  //    ajax: anything else
-  function fillFaceboxFromHref(href, klass) {
-    // div
-    if (href.match(/#/)) {
-      var url    = window.location.href.split('#')[0]
-      var target = href.replace(url,'')
-      if (target == '#') return
-      $.facebox.reveal($(target).html(), klass)
-
-    // image
-    } else if (href.match($.facebox.settings.imageTypesRegexp)) {
-      fillFaceboxFromImage(href, klass)
-    // ajax
-    } else {
-      fillFaceboxFromAjax(href, klass)
-    }
-  }
-
-  function fillFaceboxFromImage(href, klass) {
-    var image = new Image()
-    image.onload = function() {
-      $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
-    }
-    image.src = href
-  }
-
-  function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
-  }
-
-  function skipOverlay() {
-    return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
-  }
-
-  function showOverlay() {
-    if (skipOverlay()) return
-
-    if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
-
-    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
-      .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
-      .fadeIn(200)
-    return false
-  }
-
   function hideOverlay() {
-    if (skipOverlay()) return
+    if ($.facebox.skipOverlay()) return
 
     $('#facebox_overlay').fadeOut(200, function(){
       $("#facebox_overlay").removeClass("facebox_overlayBG")
