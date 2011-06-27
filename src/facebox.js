@@ -86,7 +86,7 @@
 
   $.extend($.facebox, {
     settings: {
-      container:   : 'body',
+      container    : 'body',
       opacity      : 0.2,
       overlay      : true,
       loadingImage : '/facebox/loading.gif',
