@@ -31,7 +31,7 @@ Calling facebox() on any anchor tag will do the trick, it's easier to give your 
 
     jQuery(document).ready(function($) {
       $('a[rel*=facebox]').facebox()
-      $('input[rel*=facebox]').facebook()
+      $('input[rel*=facebox]').facebox()
     })
 
 Any anchor links with `rel="facebox"` with now automatically use facebox:
