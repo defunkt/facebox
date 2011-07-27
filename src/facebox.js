@@ -149,7 +149,7 @@
       var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
       if (klass) klass = klass[1]
 
-      fillFaceboxFromHref(this.href, klass)
+      fillFaceboxFromHref(this, klass)
       return false
     }
 
@@ -234,8 +234,9 @@
   //     div: #id
   //   image: blah.extension
   //    ajax: anything else
-  function fillFaceboxFromHref(href, klass) {
+  function fillFaceboxFromHref(el, klass) {
     // div
+    var href = el.href;
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
@@ -247,7 +248,7 @@
       fillFaceboxFromImage(href, klass)
     // ajax
     } else {
-      fillFaceboxFromAjax(href, klass)
+      fillFaceboxFromAjax(el, klass)
     }
   }
 
@@ -259,8 +260,14 @@
     image.src = href
   }
 
-  function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
+  function fillFaceboxFromAjax(el, klass) {
+  $.ajax({
+    url: el.href,
+    type: $(el).attr('data-method') || 'GET',
+    success: function(data) {
+      $.facebox.reveal(data, klass);
+    }
+  });
   }
 
   function skipOverlay() {
