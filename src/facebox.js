@@ -141,7 +141,8 @@
 
     init(settings)
 
-    function clickHandler() {
+    function clickHandler(e) {
+      e.preventDefault()
       $.facebox.loading(true)
 
       // support for rel="facebox.inline_popup" syntax, to add a class
@@ -150,10 +151,9 @@
       if (klass) klass = klass[1]
 
       fillFaceboxFromHref(this.href, klass)
-      return false
     }
 
-    return this.bind('click.facebox', clickHandler)
+    return this.bind('click.facebox', function(e){clickHandler.call(this, e)})
   }
 
   /*
