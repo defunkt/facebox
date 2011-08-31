@@ -33,7 +33,7 @@ Calling facebox() on any anchor tag will do the trick, it's easier to give your 
       $('.facebox-link').facebox()
     })
 
-Any anchor links with `clsss="facebox-link"` with now automatically use facebox:
+Any anchor links with `class="facebox-link"` with now automatically use facebox:
 
     <a href="#terms" class="facebox-link">Terms</a>
       Loads the #terms div in the box
