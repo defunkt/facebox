@@ -260,7 +260,7 @@
   }
 
   function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
+    $.facebox.jqxhr = $.get(href, function(data) { $.facebox.reveal(data, klass) })
   }
 
   function skipOverlay() {
@@ -297,6 +297,10 @@
    */
 
   $(document).bind('close.facebox', function() {
+    if ($.facebox.jqxhr) {
+      $.facebox.jqxhr.abort();
+      $.facebox.jqxhr = null;
+    }
     $(document).unbind('keydown.facebox')
     $('#facebox').fadeOut(function() {
       $('#facebox .content').removeClass().addClass('content')
