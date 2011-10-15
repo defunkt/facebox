@@ -92,6 +92,10 @@ You can give the facebox container an extra class (to fine-tune the display of t
 
     <a href="remote.html" rel="facebox[.bolder]">text</a>
 
+### Caveats
+
+Do not give any DOM element of yours an id of `facebox`. This library creates its own div with an id of `facebox` and you will get unpredictable effects if there are two `#facebox` elements.
+
 ## Contact & Help
 
 If you have questions, feel free to ask on the [Google Groups Mailing List](http://groups.google.com/group/facebox/). Alternatively if you find a bug, you can [open an issue](http://github.com/defunkt/facebox/issues).
