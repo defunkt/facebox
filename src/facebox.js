@@ -84,6 +84,7 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
+      restrictClose: false,
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
@@ -106,12 +107,14 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').show().css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
+        top:  getPageScroll()[1] + (getPageHeight() / 10),
         left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
       })
 
       $(document).bind('keydown.facebox', function(e) {
-        if (e.keyCode == 27) $.facebox.close()
+        if ($.facebox.settings.restrictClose == false) {
+          if (e.keyCode == 27) $.facebox.close()
+        }
         return true
       })
       $(document).trigger('loading.facebox')
@@ -183,11 +186,15 @@
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
     })
 
-    $('#facebox .close')
-      .click($.facebox.close)
-      .append('<img src="'
-              + $.facebox.settings.closeImage
-              + '" class="close_image" title="close">')
+    if ($.facebox.settings.restrictClose == false) {
+      $('#facebox .close')
+        .click($.facebox.close)
+        .append('<img src="'
+                + $.facebox.settings.closeImage
+                + '" class="close_image" title="close">')
+    } else {
+      $('#facebox .close').hide()
+    }
   }
 
   // getPageScroll() by quirksmode.com
@@ -275,7 +282,7 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      .click(function() { if ($.facebox.settings.restrictClose == false) $(document).trigger('close.facebox') })
       .fadeIn(200)
     return false
   }
