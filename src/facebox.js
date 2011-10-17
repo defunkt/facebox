@@ -67,6 +67,7 @@
  */
 (function($) {
   $.facebox = function(data, klass) {
+    init(data)
     $.facebox.loading()
 
     if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
