@@ -152,7 +152,7 @@
       fillFaceboxFromHref(this.href, klass)
       return false
     }
-
+    this.unbind('click.facebox');
     return this.bind('click.facebox', clickHandler)
   }
 
