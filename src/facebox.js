@@ -260,7 +260,7 @@
   }
 
   function fillFaceboxFromAjax(href, klass) {
-    $.facebox.jqxhr = $.get(href, function(data) { $.facebox.reveal(data, klass) })
+    $.facebox.jqxhr = $.get(href, function(data) { $.facebox.reveal(data, klass) },'html')
   }
 
   function skipOverlay() {
