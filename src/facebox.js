@@ -84,6 +84,7 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
+      autoscroll   : true,
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
@@ -102,8 +103,14 @@
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
 
-      $('#facebox .content').empty().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      var content = $('#facebox .content')
+      content.empty().append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      if ($.facebox.settings.autoscroll) {
+        content.css({
+          height: getPageHeight() - ((getPageHeight() / 10) * 2),
+          overflowY: 'auto'
+        })
+      }
 
       $('#facebox').show().css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
