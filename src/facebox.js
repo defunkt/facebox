@@ -272,15 +272,25 @@
   }
 
   function fillFaceboxFromIframe(href, klass) {
-    var doc = $(document), iframe = $('<iframe/>', {
+    var doc = $(document), width, height;
+    try {
+      width  = doc.innerWidth();
+      height = doc.innerHeight();
+    } catch(e) {
+      width  = doc.width();
+      height = doc.height();
+    }
+
+    var iframe = $('<iframe/>', {
       'src'              : href,
-      'width'            : Math.floor(doc.innerWidth () / 4 * 3),
-      'height'           : Math.floor(doc.innerHeight () / 5 * 3),
+      'width'            : Math.floor(width  / 4 * 3),
+      'height'           : Math.floor(height / 5 * 3),
       'frameborder'      : 0,
       'marginheight'     : 0,
       'marginwidth'      : 0,
       'allowtransparency': true,
     });
+
     $.facebox.reveal(iframe, klass);
   }
 
