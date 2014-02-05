@@ -84,6 +84,7 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
+      overlayClose : true, // if false, clicking overlay does not close facebox
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
@@ -275,7 +276,7 @@
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      .click(function() { if ($.facebox.settings.overlayClose) $(document).trigger('close.facebox') })
       .fadeIn(200)
     return false
   }
