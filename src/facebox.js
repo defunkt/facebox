@@ -101,6 +101,8 @@
       init()
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
+      
+      $("body").append( $("#facebox .content *:first").remove().hide() );
 
       $('#facebox .content').empty().
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
