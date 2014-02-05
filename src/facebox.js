@@ -52,6 +52,10 @@
  *
  *    jQuery(document).trigger('close.facebox')
  *
+ *  Want to inject Facebox into another element?
+ * 
+ *    jQuery.facebox({ container: 'some_selector' })
+ *
  *  Facebox also has a bunch of other hooks:
  *
  *    loading.facebox
@@ -82,6 +86,7 @@
 
   $.extend($.facebox, {
     settings: {
+      container    : 'body',
       opacity      : 0.2,
       overlay      : true,
       loadingImage : '/facebox/loading.gif',
@@ -172,7 +177,7 @@
     $.facebox.settings.imageTypesRegexp = new RegExp('\\.(' + imageTypes + ')(\\?.*)?$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
-    $('body').append($.facebox.settings.faceboxHtml)
+    $($.facebox.settings.container).append($.facebox.settings.faceboxHtml)
 
     var preload = [ new Image(), new Image() ]
     preload[0].src = $.facebox.settings.closeImage
