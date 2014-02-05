@@ -31,6 +31,7 @@ Calling facebox() on any anchor tag will do the trick, it's easier to give your 
 
     jQuery(document).ready(function($) {
       $('a[rel*=facebox]').facebox()
+      $('input[rel*=facebox]').facebox()
     })
 
 Any anchor links with `rel="facebox"` with now automatically use facebox:
@@ -44,6 +45,8 @@ Any anchor links with `rel="facebox"` with now automatically use facebox:
     <a href="terms.png" rel="facebox">Terms</a>
       Loads the terms.png image in the box
 
+    <input type="button" value="Sign Up" href="sign-up.html" rel="facebox[.body]">
+      Loads the sign-up.html page
 
 ### Using facebox programmatically
 

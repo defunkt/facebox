@@ -146,10 +146,14 @@
 
       // support for rel="facebox.inline_popup" syntax, to add a class
       // also supports deprecated "facebox[.inline_popup]" syntax
-      var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
+      
+      var rel = $(this).attr('rel') 
+      var href = $(this).attr('href')
+      
+      var klass = rel.match(/facebox\[?\.(\w+)\]?/)
       if (klass) klass = klass[1]
 
-      fillFaceboxFromHref(this.href, klass)
+      fillFaceboxFromHref(href, klass)
       return false
     }
 
