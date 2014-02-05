@@ -236,7 +236,7 @@
   //    ajax: anything else
   function fillFaceboxFromHref(href, klass) {
     // div
-    if (href.match(/#/)) {
+    if (href.match(/^#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
       if (target == '#') return
@@ -245,9 +245,17 @@
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
       fillFaceboxFromImage(href, klass)
-    // ajax
+    // iframe / ajax
     } else {
-      fillFaceboxFromAjax(href, klass)
+      var host = href.match(/^(?:ht|f)tps?:\/\/([^\/]+)/);
+
+      if (host)
+        host = host[1];
+
+      if (!host || host == document.location.host)
+        fillFaceboxFromAjax(href, klass);
+      else
+        fillFaceboxFromIframe(href, klass);
     }
   }
 
@@ -261,6 +269,29 @@
 
   function fillFaceboxFromAjax(href, klass) {
     $.facebox.jqxhr = $.get(href, function(data) { $.facebox.reveal(data, klass) })
+  }
+
+  function fillFaceboxFromIframe(href, klass) {
+    var doc = $(document), width, height;
+    try {
+      width  = doc.innerWidth();
+      height = doc.innerHeight();
+    } catch(e) {
+      width  = doc.width();
+      height = doc.height();
+    }
+
+    var iframe = $('<iframe/>', {
+      'src'              : href,
+      'width'            : Math.floor(width  / 4 * 3),
+      'height'           : Math.floor(height / 5 * 3),
+      'frameborder'      : 0,
+      'marginheight'     : 0,
+      'marginwidth'      : 0,
+      'allowtransparency': true,
+    });
+
+    $.facebox.reveal(iframe, klass);
   }
 
   function skipOverlay() {
