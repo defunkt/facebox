@@ -19,7 +19,6 @@
 }
 
 #facebox .content {
-  display:table;
   width: 370px;
   padding: 10px;
   background: #fff;
@@ -38,7 +37,7 @@
 #facebox .close{
   position:absolute;
   top:5px;
-  right:5px;
+  right:17px;
   padding:2px;
   background:#fff;
 }
