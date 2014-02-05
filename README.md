@@ -27,21 +27,21 @@ Include jQuery, `src/facebox.js` and `src/facebox.css`. Then tell facebox where 
     $.facebox.settings.closeImage = '/images/facebox/closelabel.png'
     $.facebox.settings.loadingImage = '/images/facebox/loading.gif'
 
-Calling facebox() on any anchor tag will do the trick, it's easier to give your Faceboxy links a rel="facebox"  and hit them all onDomReady.
+Calling facebox() on any anchor tag will do the trick, it's easier to give your Faceboxy links a class="facebox-link"  and hit them all onDomReady.
 
     jQuery(document).ready(function($) {
-      $('a[rel*=facebox]').facebox()
+      $('.facebox-link').facebox()
     })
 
-Any anchor links with `rel="facebox"` with now automatically use facebox:
+Any anchor links with `class="facebox-link"` with now automatically use facebox:
 
-    <a href="#terms" rel="facebox">Terms</a>
+    <a href="#terms" class="facebox-link">Terms</a>
       Loads the #terms div in the box
 
-    <a href="terms.html" rel="facebox">Terms</a>
+    <a href="terms.html" class="facebox-link">Terms</a>
       Loads the terms.html page in the box
 
-    <a href="terms.png" rel="facebox">Terms</a>
+    <a href="terms.png" class="facebox-link">Terms</a>
       Loads the terms.png image in the box
 
 
