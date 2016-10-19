@@ -87,14 +87,13 @@
       loadingImage : '/facebox/loading.gif',
       closeImage   : '/facebox/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-      faceboxHtml  : '\
-    <div id="facebox" style="display:none;"> \
-      <div class="popup"> \
-        <div class="content"> \
-        </div> \
-        <a href="#" class="close"></a> \
-      </div> \
-    </div>'
+      faceboxHtml  :
+      $('<div/>', {'id': 'facebox', 'style': 'display:none'}).append(
+        $('<div/>', {'class': 'popup'}).append(
+          $('<div/>', {'class': 'content'}),
+          $('<a/>',   {'class': 'close', 'href': '#'})
+        )
+      )
     },
 
     loading: function() {
@@ -102,8 +101,11 @@
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
 
-      $('#facebox .content').empty().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      $('#facebox .content').empty().append(
+        $('<div/>', {'class':'loading'}).append(
+          $('<img/>', {'src'  : $.facebox.settings.loadingImage})
+        )
+      )
 
       $('#facebox').show().css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
@@ -185,9 +187,11 @@
 
     $('#facebox .close')
       .click($.facebox.close)
-      .append('<img src="'
-              + $.facebox.settings.closeImage
-              + '" class="close_image" title="close">')
+      .append($('<img/>', {
+        'src'  : $.facebox.settings.closeImage,
+        'class': 'close_image',
+        'title': 'close'
+      }))
   }
 
   // getPageScroll() by quirksmode.com
@@ -254,7 +258,10 @@
   function fillFaceboxFromImage(href, klass) {
     var image = new Image()
     image.onload = function() {
-      $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
+      $.facebox.reveal(
+        $('<div/>', {'class': 'image'}).append($('<img/>', {'src': image.src})),
+        klass
+      )
     }
     image.src = href
   }
@@ -271,7 +278,10 @@
     if (skipOverlay()) return
 
     if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
+      $('body').append($('<div/>', {
+        'id'   : 'facebox_overlay',
+        'class': 'facebox_hide'
+      }))
 
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
