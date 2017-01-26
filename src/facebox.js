@@ -102,11 +102,10 @@
       if ($('#facebox .loading').length == 1) return true
       showOverlay()
 
-      $('#facebox .content').empty().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      $('#facebox .content').html('<div class="loading"><img src="' + $.facebox.settings.loadingImage + '"/></div>')
 
       $('#facebox').show().css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
+        top:	$(window).scrollTop() + ($(window).height() / 10),
         left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
       })
 
@@ -174,7 +173,7 @@
     if (settings) $.extend($.facebox.settings, settings)
     $('body').append($.facebox.settings.faceboxHtml)
 
-    var preload = [ new Image(), new Image() ]
+    var preload = [new Image(), new Image()]
     preload[0].src = $.facebox.settings.closeImage
     preload[1].src = $.facebox.settings.loadingImage
 
@@ -188,35 +187,6 @@
       .append('<img src="'
               + $.facebox.settings.closeImage
               + '" class="close_image" title="close">')
-  }
-
-  // getPageScroll() by quirksmode.com
-  function getPageScroll() {
-    var xScroll, yScroll;
-    if (self.pageYOffset) {
-      yScroll = self.pageYOffset;
-      xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
-      yScroll = document.documentElement.scrollTop;
-      xScroll = document.documentElement.scrollLeft;
-    } else if (document.body) {// all other Explorers
-      yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;
-    }
-    return new Array(xScroll,yScroll)
-  }
-
-  // Adapted from getPageSize() by quirksmode.com
-  function getPageHeight() {
-    var windowHeight
-    if (self.innerHeight) {	// all except Explorer
-      windowHeight = self.innerHeight;
-    } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-      windowHeight = document.documentElement.clientHeight;
-    } else if (document.body) { // other Explorers
-      windowHeight = document.body.clientHeight;
-    }
-    return windowHeight
   }
 
   // Backwards compatibility
@@ -238,7 +208,7 @@
     // div
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
-      var target = href.replace(url,'')
+      var target = href.replace(url, '')
       if (target == '#') return
       $.facebox.reveal($(target).html(), klass)
 
@@ -271,11 +241,11 @@
     if (skipOverlay()) return
 
     if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
+      $('body').append('<div id="facebox_overlay" class="facebox_hide"></div>')
 
-    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
+    $('#facebox_overlay').hide().addClass('facebox_overlayBG')
       .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+      .click(function() {$(document).trigger('close.facebox')})
       .fadeIn(200)
     return false
   }
@@ -283,10 +253,10 @@
   function hideOverlay() {
     if (skipOverlay()) return
 
-    $('#facebox_overlay').fadeOut(200, function(){
-      $("#facebox_overlay").removeClass("facebox_overlayBG")
-      $("#facebox_overlay").addClass("facebox_hide")
-      $("#facebox_overlay").remove()
+    $('#facebox_overlay').fadeOut(200, function() {
+      $('#facebox_overlay').removeClass('facebox_overlayBG')
+      $('#facebox_overlay').addClass('facebox_hide')
+      $('#facebox_overlay').remove()
     })
 
     return false
