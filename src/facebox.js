@@ -107,7 +107,8 @@
 
       $('#facebox').show().css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+        //left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+        left:  getPageScroll()[0] + ( getPageWidth() / 2 - 205 )
       })
 
       $(document).bind('keydown.facebox', function(e) {
@@ -122,7 +123,8 @@
       if (klass) $('#facebox .content').addClass(klass)
       $('#facebox .content').empty().append(data)
       $('#facebox .popup').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
+      //$('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2))
+      $('#facebox').css('left', (getPageScroll()[0] + ( getPageWidth() / 2 )) - ($('#facebox .popup').width() / 2))
       $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
     },
 
@@ -217,6 +219,19 @@
       windowHeight = document.body.clientHeight;
     }
     return windowHeight
+  }
+  
+  // Adapted from getPageSize() 
+  function getPageWidth() {
+    var windowWidth
+    if (self.innerWidth) {  // all except Explorer
+      windowWidth = self.innerWidth;
+    } else if (document.documentElement && document.documentElement.clientWidth) { // Explorer 6 Strict Mode
+      windowWidth = document.documentElement.clientWidth;
+    } else if (document.body) { // other Explorers
+      windowWidth = document.body.clientWidth;
+    }
+    return windowWidth
   }
 
   // Backwards compatibility
